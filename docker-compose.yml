@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0
+
+    container_name: sequelize_db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+
+      MYSQL_DATABASE: nombre_base_datos
+
+      MYSQL_USER: usuario
+
+      MYSQL_PASSWORD: contraseña
+
+    ports:
+      - '3306:3306'
+
+    volumes:
+      - db_data:/var/lib/mysql # Persistencia de datos
+
+volumes:
+  db_data:
