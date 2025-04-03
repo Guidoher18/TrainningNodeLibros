@@ -1,25 +1,28 @@
-version: '3.9'
+# Youtube Tutorial: https://www.youtube.com/watch?v=M0ekM0K2SWI
+
+#version: '3.9'
 
 services:
-  db:
+  mysqldb: 
     image: mysql:8.0
-
     container_name: sequelize_db
-
+    command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-
-      MYSQL_DATABASE: nombre_base_datos
-
-      MYSQL_USER: usuario
-
-      MYSQL_PASSWORD: contraseña
-
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: node_training
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
     ports:
       - '3306:3306'
-
     volumes:
-      - db_data:/var/lib/mysql # Persistencia de datos
+      - dbdata:/var/lib/mysql
+      #- ./db/script-my-sql.sql:/docker-entrypoint-initdb.d/script-my-sql.sql
+    networks:
+      - linknet
+    #restart: unless-stopped
+
+networks:
+  linknet:
 
 volumes:
-  db_data:
+  dbdata:
