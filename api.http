@@ -1,0 +1,18 @@
+# Público
+GET http://localhost:3009 HTTP/1.1
+Content-Type: text/html
+
+###
+
+# Privado
+GET http://localhost:3009/protegido HTTP/1.1
+Content-Type: application/json, text/html
+# Authorization: 
+# Authorization: mi-token-secreto2
+Authorization: mi-token-secreto
+
+###
+
+# Desde el Controller
+GET http://localhost:3009/api/saludo HTTP/1.1
+Content-Type: text/html
