@@ -19,12 +19,16 @@
   },
   "homepage": "https://github.com/Guidoher18/TrainningNodeLibros#readme",
   "dependencies": {
-    "express": "4.21.2"
+    "express": "4.21.2",
+    "mysql2": "3.14.0",
+    "sequelize": "6.37.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.14",
+    "@types/sequelize": "^4.28.20",
+    "dotenv": "^16.4.7",
     "eslint": "^9.23.0",
     "globals": "^16.0.0",
     "nodemon": "^3.1.9",
