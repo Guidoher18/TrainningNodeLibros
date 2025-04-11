@@ -1,28 +1,65 @@
 import express from 'express';
-import router from './routes/ejemplo.route';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
+import session from 'express-session';
+import loginRouter from './routes/login.route';
 import authMiddleware from './middlewares/authMiddleware';
+import sessionConfig from './config/session';
+import path from 'path';
+import User from './models/User';
 
 const app = express();
 
 dotenv.config();
 
-const PORT = process.env.PORT ?? 3000;
-
 app.disable('x-powered-by');
 
-// Middleware para parsear json
+// EJS Views
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Middlewares
 app.use(express.json());
+app.use(morgan('dev'));
+app.use(session(sessionConfig));
+app.use(authMiddleware);
+
+// static files
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', (req, res) => {
-  res.send('<h1>Bienvenido a la API Pública!</h1>');
+  res.render('index');
 });
 
-app.use('/protegido', authMiddleware, (req, res) => {
-  res.send('<h1>Has accedido a un endpoint privado!</h1>');
+app.use('/login', loginRouter);
+
+app.get('/home', (req, res) => {
+  const data = req.session.user as User;
+
+  res.render('home', {
+    id: data.id,
+    username: data.username,
+    email: data.email
+  });
 });
 
-app.use('/api', router);
+// logout
+app.post('/logout', (req, res) => {
+  console.log('ANTES');
+  console.log(req.session.user);
+  console.log(req.cookies['access_token']);
+
+  req.session.user = null;
+  res.clearCookie('access_token');
+
+  console.log('DESPUES');
+  console.log(req.session.user);
+  console.log(req.cookies['access_token']);
+
+  res.status(200).json({ message: 'Logout exitoso!' });
+});
+
+const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`);

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./src/index.ts",
-    "nodemon-dev": "nodemon --exec ts-node ./src/index.ts",
+    "dev": "nodemon --exec ts-node ./src/index.ts",
+    "dev2": "ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,22 +20,31 @@
   },
   "homepage": "https://github.com/Guidoher18/TrainningNodeLibros#readme",
   "dependencies": {
+    "bcryptjs": "3.0.2",
+    "ejs": "3.1.10",
     "express": "4.21.2",
+    "express-session": "1.18.1",
+    "jsonwebtoken": "9.0.1",
     "mysql2": "3.14.0",
     "sequelize": "6.37.7"
   },
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.13.14",
-    "@types/sequelize": "^4.28.20",
-    "dotenv": "^16.4.7",
-    "eslint": "^9.23.0",
-    "globals": "^16.0.0",
-    "nodemon": "^3.1.9",
-    "semistandard": "^17.0.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.29.0"
+    "@eslint/js": "9.23.0",
+    "@types/express": "5.0.1",
+    "@types/express-session": "^1.18.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/morgan": "^1.9.9",
+    "@types/ms": "^2.1.0",
+    "@types/node": "22.13.14",
+    "@types/sequelize": "4.28.20",
+    "dotenv": "16.4.7",
+    "eslint": "9.23.0",
+    "globals": "16.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "3.1.9",
+    "semistandard": "17.0.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.29.0"
   }
 }
