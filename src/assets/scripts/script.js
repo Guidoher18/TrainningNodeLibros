@@ -46,9 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     const res = authReg();
     res
+      .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        window.location.href = '/home';
+        if (data.redirect) {
+          window.location.href = data.redirect;
+        }
       })
       .catch((error) => console.log(error));
   });
@@ -56,6 +58,14 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#register').addEventListener('click', (e) => {
     e.preventDefault();
     const res = authReg('register');
-    res.then((data) => console.log(data)).catch((error) => console.log(error));
+
+    res
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.redirect) {
+          window.location.href = data.redirect;
+        }
+      })
+      .catch((error) => console.log(error));
   });
 });

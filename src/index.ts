@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import loginRouter from './routes/login.route';
 import authMiddleware from './middlewares/authMiddleware';
 import sessionConfig from './config/session';
@@ -22,13 +23,14 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(session(sessionConfig));
+app.use(cookieParser());
 app.use(authMiddleware);
 
 // static files
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { cache: false });
 });
 
 app.use('/login', loginRouter);
@@ -43,23 +45,19 @@ app.get('/home', (req, res) => {
   });
 });
 
+const PORT = process.env.PORT ?? 3000;
+
 // logout
 app.post('/logout', (req, res) => {
-  console.log('ANTES');
-  console.log(req.session.user);
-  console.log(req.cookies['access_token']);
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error trying to logout!' });
+    }
 
-  req.session.user = null;
-  res.clearCookie('access_token');
-
-  console.log('DESPUES');
-  console.log(req.session.user);
-  console.log(req.cookies['access_token']);
-
-  res.status(200).json({ message: 'Logout exitoso!' });
+    res.clearCookie('access_token');
+    return res.status(301).json({ redirect: `/` });
+  });
 });
-
-const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`);

@@ -14,6 +14,27 @@
     <p>Email: <%= email %>
     </p>
     <button id="logout">Cerrar sesión</button>
+
+    <script>
+        const PORT = window.location.port ?? '';
+
+        document.getElementById('logout').addEventListener('click', () => {
+            const res = fetch(`http://localhost:${PORT}/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    }
+                })
+                .catch(error => console.log(error));
+
+        });
+    </script>
 </body>
 
 </html>

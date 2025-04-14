@@ -21,16 +21,13 @@ export const authMiddleware = (
   const pathPublicosRegex = pathPublicos.map((path) => new RegExp(`^${path}$`));
   const esPathPublico = pathPublicosRegex.some((regex) => regex.test(req.path));
 
-  console.log(`Path: ${req.path}`);
+  // console.log(`Path: ${req.path}`);
   console.log('esPathPublico :>> ', esPathPublico);
 
   if (!esPathPublico) {
-    console.log('COOKIES');
-    console.log(req.headers.cookie);
+    const token: string = req.cookies.access_token ?? '';
 
-    const token: string = JSON.parse(req.headers.cookie as string) ?? '';
-
-    console.log(`Token: ${token}`);
+    // console.log(`Token: ${token}`);
 
     if (token.length === 0) {
       res.status(401).json({ message: 'Unauthorized. No token provided.' });
