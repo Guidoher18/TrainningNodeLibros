@@ -1,5 +1,5 @@
 import User from './User';
-import sequelize from '../config/db';
+// import sequelize from '../config/db';
 
 // Registrar todos los modelos aquí
 const models = {
@@ -14,5 +14,5 @@ const models = {
 //   }
 // });
 
-export { sequelize };
+// export { sequelize };
 export default models;
