@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './routes/ejemplo.route';
 import dotenv from 'dotenv';
+import authMiddleware from './middlewares/authMiddleware';
 
 const app = express();
 
@@ -14,7 +15,11 @@ app.disable('x-powered-by');
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('<h1>Hola Mundo!</h1>');
+  res.send('<h1>Bienvenido a la API Pública!</h1>');
+});
+
+app.use('/protegido', authMiddleware, (req, res) => {
+  res.send('<h1>Has accedido a un endpoint privado!</h1>');
 });
 
 app.use('/api', router);
