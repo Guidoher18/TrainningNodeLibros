@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import models from '../models/index';
 import User from '../models/User';
 import AuthToken from '../authentication/jwt';
+import { catchError } from '../helper/common';
 
 const resWithToken = (
   message: string,
@@ -62,11 +63,8 @@ export const authentication = async (req: Request, res: Response) => {
     }
 
     return resWithToken('Authentication OK!', 200, user, res);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return res
-      .status(400)
-      .json({ message: 'An error has ocurred. Try later!' });
+    catchError(error, res, 400, 'An error has ocurred. Try later!');
   }
 };
 
@@ -81,7 +79,7 @@ export const register = async (req: Request, res: Response) => {
 
     if (user !== null) {
       return res
-        .status(409)
+        .status(400)
         .json({ message: 'Conflict. User already exists.' });
     }
 
@@ -91,21 +89,13 @@ export const register = async (req: Request, res: Response) => {
       password: data.password
     });
 
-    //TODO: REVISAR POR QUÉ NO LLEGA EL ERROR AL CATCH
-
-    //   .catch((error: unknown) => {
-    //   res.status(500).json({ message: (error as Error).message });
-    // });
-
     return resWithToken(
       'Your user has been registered!',
       201,
       userCreated,
       res
     );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: unknown) {
-    res.status(400).json({ message: 'An error has ocurred. Try later!' });
-    // res.status(400).json({ message: (error as Error).message });
+    catchError(error, res, 400, 'An error has ocurred. Try later!');
   }
 };
