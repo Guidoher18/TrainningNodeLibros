@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import loginRouter from './routes/login.route';
 import bookRouter from './routes/book.route';
 import authMiddleware from './middlewares/authMiddleware';
@@ -15,6 +16,16 @@ const app = express();
 dotenv.config();
 
 app.disable('x-powered-by');
+
+// CORS
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  })
+);
 
 // EJS Views
 app.set('views', path.join(__dirname, 'views'));
