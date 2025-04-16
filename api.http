@@ -98,12 +98,11 @@ Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW
 ###
 
 # Update    
-PUT http://localhost:3009/books/update HTTP/1.1
+PUT http://localhost:3009/books/update/4 HTTP/1.1
 Content-Type: application/json
 Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
 
 {
-    "id": 3,
     "title": "Las puertas de piedra - UPDATED",
     "author": "Patrick Rothfuss - UPDATED",
     "image_url": "https://example.com/image3.jpg - UPDATED",

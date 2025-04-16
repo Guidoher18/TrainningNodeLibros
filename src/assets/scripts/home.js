@@ -108,13 +108,16 @@ async function createBook(bookData) {
 async function updateBook(id, bookData) {
   try {
     // Simulate API call (replace with actual fetch in production)
-    const response = await fetch(`http://localhost:${PORT}/books/update`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id, ...bookData })
-    });
+    const response = await fetch(
+      `http://localhost:${PORT}/books/update/${id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...bookData })
+      }
+    );
     const data = await response.json();
 
     const index = books.findIndex((book) => book.id === id);

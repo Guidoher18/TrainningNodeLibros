@@ -14,7 +14,7 @@ const router = Router();
 router.get('/', asyncHandler(getAll));
 router.get('/:id', asyncHandler(getById));
 router.post('/create', asyncHandler(create));
-router.put('/update', asyncHandler(update));
+router.put('/update/:id', asyncHandler(update));
 router.delete('/delete/:id', asyncHandler(remove));
 
 export default router;
