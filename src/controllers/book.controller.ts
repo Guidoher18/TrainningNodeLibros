@@ -44,8 +44,9 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   try {
+    const { id } = req.params;
     const book: Book = req.body;
-    const bookToUpdate = await models.Book.findByPk(book.id);
+    const bookToUpdate = await models.Book.findByPk(id);
 
     if (!bookToUpdate) {
       return res.status(404).json({ message: 'Not Found. Book not found.' });
