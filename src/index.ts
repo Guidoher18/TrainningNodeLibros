@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import loginRouter from './routes/login.route';
+import bookRouter from './routes/book.route';
 import authMiddleware from './middlewares/authMiddleware';
 import sessionConfig from './config/session';
 import path from 'path';
@@ -33,8 +34,6 @@ app.get('/', (req, res) => {
   res.render('index', { cache: false });
 });
 
-app.use('/login', loginRouter);
-
 app.get('/home', (req, res) => {
   const data = req.session.user as User;
 
@@ -44,8 +43,6 @@ app.get('/home', (req, res) => {
     email: data.email
   });
 });
-
-const PORT = process.env.PORT ?? 3000;
 
 // logout
 app.post('/logout', (req, res) => {
@@ -58,6 +55,11 @@ app.post('/logout', (req, res) => {
     return res.status(301).json({ redirect: `/` });
   });
 });
+
+app.use('/login', loginRouter);
+app.use('/books', bookRouter);
+
+const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`);

@@ -1,40 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Gestión de Libros</title>
+    <link rel="stylesheet" href="../assets/styles/home.css">
 </head>
 
 <body>
-    <h1>Bienvenido <%= username %> a la home</h1>
-    <p>Id: <%= id %>
-    </p>
-    <p>Email: <%= email %>
-    </p>
-    <button id="logout">Cerrar sesión</button>
+    <div class="container">
+        <nav class="navbar" style="margin-bottom: 30px;">
+            <div class="navbar-container">
+                <div class="navbar-logo">
+                </div>
+                <div class="navbar-user">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">
+                            [<%= id %>] <%= username %>
+                        </span>
+                        <span class="user-email" id="userEmail">
+                            <%= email %>
+                        </span>
+                    </div>
+                    <button id="logoutBtn" class="btn btn-secondary logout-btn">
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Gestión de Libros</h1>
+                <button id="createBookBtn" class="btn btn-primary">
+                    <span class="icon">+</span>
+                    Crear Libro
+                </button>
+            </div>
+            <div class="card-content">
+                <div id="loading" class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>Cargando libros...</p>
+                </div>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <p>No hay libros disponibles.</p>
+                    <button id="emptyStateBtn" class="btn btn-primary">Agregar un libro</button>
+                </div>
+                <div id="bookList" class="book-list" style="display: none;">
+                    <div class="book-list-header">
+                        <div class="col-image">Imagen</div>
+                        <div class="col-title">[Id] Título</div>
+                        <div class="col-author">Autor</div>
+                        <div class="col-genre">Género</div>
+                        <div class="col-publisher">Editorial</div>
+                        <div class="col-actions" style="text-align: center;">Acciones</div>
+                    </div>
+                    <div id="bookListContent" class="book-list-content">
+                        <!-- Books will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const PORT = window.location.port ?? '';
+    <!-- Modal for Create/Edit Book -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Crear Nuevo Libro</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="bookForm">
+                <input type="hidden" id="bookId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="title">Título</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Autor</label>
+                        <input type="text" id="author" name="author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image_url">URL de la imagen</label>
+                        <input type="text" id="image_url" name="image_url" placeholder="https://ejemplo.com/imagen.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Género</label>
+                        <select id="genre" name="genre">
+                            <option value="">Selecciona un género</option>
+                            <option value="Novela">Novela</option>
+                            <option value="Poesía">Poesía</option>
+                            <option value="Ensayo">Ensayo</option>
+                            <option value="Ciencia Ficción">Ciencia Ficción</option>
+                            <option value="Fantasía">Fantasía</option>
+                            <option value="Terror">Terror</option>
+                            <option value="Misterio">Misterio</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="Histórica">Histórica</option>
+                            <option value="Biografía">Biografía</option>
+                            <option value="Autoayuda">Autoayuda</option>
+                            <option value="Infantil">Infantil</option>
+                            <option value="Juvenil">Juvenil</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="publisher">Editorial</label>
+                        <input type="text" id="publisher" name="publisher">
+                    </div>
+                    <div class="form-group">
+                        <label for="pages">Número de páginas</label>
+                        <input type="number" id="pages" name="pages" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="published_date">Fecha de publicación</label>
+                        <input type="date" id="published_date" name="published_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="reading_time">Tiempo de lectura</label>
+                        <select id="reading_time" name="reading_time">
+                            <option value="">Selecciona un tiempo estimado</option>
+                            <option value="Menos de 1 hora">Menos de 1 hora</option>
+                            <option value="1-2 horas">1-2 horas</option>
+                            <option value="2-4 horas">2-4 horas</option>
+                            <option value="4-8 horas">4-8 horas</option>
+                            <option value="8-12 horas">8-12 horas</option>
+                            <option value="Más de 12 horas">Más de 12 horas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="sinopsis">Sinopsis</label>
+                    <textarea id="sinopsis" name="sinopsis" rows="5"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Crear Libro</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        document.getElementById('logout').addEventListener('click', () => {
-            const res = fetch(`http://localhost:${PORT}/logout`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(res => res.json())
-                .then((data) => {
-                    if (data.redirect) {
-                        window.location.href = data.redirect;
-                    }
-                })
-                .catch(error => console.log(error));
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content delete-modal">
+            <div class="modal-header">
+                <h2>¿Estás seguro?</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Esta acción no se puede deshacer. El libro será eliminado permanentemente.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Cancelar</button>
+                <button id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
 
-        });
-    </script>
+    <script src="../assets/scripts/home.js"></script>
 </body>
 
 </html>
