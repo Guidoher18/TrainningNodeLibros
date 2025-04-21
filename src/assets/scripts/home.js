@@ -143,21 +143,19 @@ async function deleteBook(id) {
     //     method: 'DELETE',
     // });
     // const data = await response.json();
-    const response = await fetch(
-      `http://localhost:${PORT}/books/delete/${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    await fetch(`http://localhost:${PORT}/books/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    );
-    const data = await response.json();
+    }).then(() => {
+      // const data = await response.json();
 
-    books = books.filter((book) => book.id !== id);
+      books = books.filter((book) => book.id !== id);
 
-    renderBooks();
-    return { success: true };
+      renderBooks();
+      return { success: true };
+    });
   } catch (error) {
     console.error(`Error deleting book with id ${id}:`, error);
     throw new Error('No se pudo eliminar el libro');
