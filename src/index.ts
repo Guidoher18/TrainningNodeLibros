@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import loginRouter from './routes/login.route';
 import bookRouter from './routes/book.route';
+import searchRouter from './routes/search.route';
 import authMiddleware from './middlewares/authMiddleware';
 import sessionConfig from './config/session';
 import path from 'path';
@@ -20,7 +21,7 @@ app.disable('x-powered-by');
 // CORS
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://localhost:3009'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -69,6 +70,7 @@ app.post('/logout', (req, res) => {
 
 app.use('/login', loginRouter);
 app.use('/books', bookRouter);
+app.use('/search', searchRouter);
 
 const PORT = process.env.PORT ?? 3000;
 
