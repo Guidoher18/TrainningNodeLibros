@@ -1,11 +1,13 @@
 import Book from './Book';
 import User from './User';
+import UserBook from './UserBook';
 // import sequelize from '../config/db';
 
 // Registrar todos los modelos aquí
 const models = {
   User,
-  Book
+  Book,
+  UserBook
 };
 
 // TODO: Revisar no funciona
