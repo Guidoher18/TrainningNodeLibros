@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import models from '../models/index';
 import { catchError } from '../helper/common';
 import sequelize from '../config/db';
-import Book from '../models/Book';
 import userToDto from '../dto/user.dto';
 import User from '../models/User';
 
@@ -22,7 +21,7 @@ export const getBooksByUser = async (req: Request, res: Response) => {
       .map((userBook) => userBook.bookID)
       .join(', ');
 
-    console.log('booksIds :>> ', booksIds);
+    // console.log('booksIds :>> ', booksIds);
 
     const [results, metadata] = await sequelize.query(
       `SELECT * FROM Books WHERE id IN (${booksIds})`
@@ -104,54 +103,5 @@ export const remove = async (req: Request, res: Response) => {
     catchError(error, res);
   }
 };
-
-/*
-export const getById = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-
-    // console.log('id :>> ', id);
-    const book = await models.Book.findByPk(id);
-
-    if (!book) {
-      return res.status(404).json({ message: 'Not Found. Book not found.' });
-    }
-
-    return res.status(200).json(book);
-  } catch (error: unknown) {
-    catchError(error, res);
-  }
-};
-
-export const getAll = async (req: Request, res: Response) => {
-  try {
-    const books = await models.Book.findAll();
-    return res.json(books);
-  } catch (error: unknown) {
-    catchError(error, res);
-  }
-};
-
-
-export const update = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const book: Book = req.body;
-    const bookToUpdate = await models.Book.findByPk(id);
-
-    if (!bookToUpdate) {
-      return res.status(404).json({ message: 'Not Found. Book not found.' });
-    }
-
-    await bookToUpdate.update(book);
-    return res.status(200).json(bookToUpdate);
-  } catch (error: unknown) {
-    catchError(error, res);
-  }
-};
-
-
-*/
-// export default { getById, getAll, create, update, remove };
 
 export default { getBooksByUser, getUsersByBook, create };

@@ -401,7 +401,7 @@ function handleLogout() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('Usuario cerró sesión');
+        // console.log('Usuario cerró sesión');
         if (data.redirect) {
           window.location.href = data.redirect;
         }

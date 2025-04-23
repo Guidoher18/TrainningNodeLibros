@@ -34,7 +34,7 @@ export const create = async (req: Request, res: Response) => {
   try {
     const user: User = req.body;
 
-    console.log('user :>> ', user);
+    // console.log('user :>> ', user);
     const newUser = await models.User.create({ ...user });
 
     return res.status(201).json(userToDto(newUser));

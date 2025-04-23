@@ -33,7 +33,7 @@ export const create = async (req: Request, res: Response) => {
   try {
     const book: Book = req.body;
 
-    console.log('book :>> ', book);
+    // console.log('book :>> ', book);
     const newBook = await models.Book.create({ ...book });
 
     return res.status(201).json(newBook);
