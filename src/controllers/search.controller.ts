@@ -2,20 +2,51 @@ import { Request, Response } from 'express';
 import { catchError } from '../helper/common';
 import models from '../models';
 
+class qParams {
+  q: string;
+  fields: string;
+  work_page: string;
+  work_size: string;
+
+  constructor(q: string, fields: string, work_page: string, work_size: string) {
+    this.q = q;
+    this.fields = fields;
+    this.work_page = work_page;
+    this.work_size = work_size;
+  }
+}
+
+const getWorksQueryParams = (
+  req: Request,
+  res: Response
+): qParams | Response => {
+  const { q, fields = 'edition_key title', work_page, work_size } = req.query;
+
+  if ([q, fields, work_page, work_size].includes(undefined)) {
+    return res.status(400).json({
+      message:
+        'Bad request. Missing parameters: "q", "work_page", "work_size" are required, "fields" is optional.'
+    });
+  }
+
+  return new qParams(
+    q as string,
+    fields as string,
+    work_page as string,
+    work_size as string
+  );
+};
+
 /**
  * By default, the search endpoint returns works instead of editions. A work is a collection of editions; for example there is only one work for The Wonderful Wizard of Oz (OL18417W), but there are 1029 editions, over many languages! Sometimes you might want to fetch data about editions as well as works.
  * More info: https://openlibrary.org/dev/docs/api/search
  */
 export const getWorks = async (req: Request, res: Response) => {
   try {
-    const { q, fields = 'edition_key title', work_page, work_size } = req.query;
-
-    if ([q, fields, work_page, work_size].includes(undefined)) {
-      return res.status(400).json({
-        message:
-          'Bad request. Missing parameters: "q", "work_page", "work_size" are required, "fields" is optional.'
-      });
-    }
+    const { q, fields, work_page, work_size } = (await getWorksQueryParams(
+      req,
+      res
+    )) as qParams;
 
     await fetch(
       `https://openlibrary.org/search.json?q=${q}&fields=${(
@@ -116,6 +147,36 @@ export const importEdition = async (req: Request, res: Response) => {
 
       return res.status(201).json(newBook);
     });
+  } catch (error) {
+    catchError(error, res);
+  }
+};
+
+export const getWorksByTitle = async (req: Request, res: Response) => {
+  try {
+    req.query.q = '';
+
+    const { fields, work_page, work_size } = (await getWorksQueryParams(
+      req,
+      res
+    )) as qParams;
+
+    const { title } = req.query;
+
+    if (title === undefined)
+      return res.status(400).json({
+        message: 'Bad request. Missing parameters: "title" is required.'
+      });
+
+    const response = await fetch(
+      `https://openlibrary.org/search.json?q=title%3A+%22${title}%22&fields=${(
+        fields as string
+      ).replace(' ', '%20')}&page=${work_page}&limit=${work_size}`
+    );
+
+    const data = await response.json();
+
+    return res.json(data);
   } catch (error) {
     catchError(error, res);
   }
