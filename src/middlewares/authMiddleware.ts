@@ -22,7 +22,7 @@ export const authMiddleware = (
   const esPathPublico = pathPublicosRegex.some((regex) => regex.test(req.path));
 
   // console.log(`Path: ${req.path}`);
-  console.log('esPathPublico :>> ', esPathPublico);
+  // console.log('esPathPublico :>> ', esPathPublico);
 
   if (!esPathPublico) {
     const token: string = req.cookies.access_token ?? '';

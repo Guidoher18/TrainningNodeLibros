@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "21d4caec-01e4-4262-82d9-0607f2e29202",
+		"name": "TrainingNodeLibros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44354966"
+	},
+	"item": [
+		{
+			"name": "| LOGIN | /login/auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"1234\",\r\n    \"email\": \"a@a.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/login/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"login",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| LOGIN | /login/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin33\",\r\n    \"password\": \"1234\",\r\n    \"email\": \"a33@a.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/login/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"login",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| BOOKS | GetAll | /books",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| BOOKS | GetById | /books/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/books/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"books",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| BOOKS | Create | /books/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"title\": \"El nombre del viento\",\r\n    \"author\": \"Patrick Rothfuss\",\r\n    \"image_url\": \"https://example.com/image.jpg\",\r\n    \"genre\": \"Fantasía\",\r\n    \"publisher\": \"Daw Books\",\r\n    \"pages\": 662,\r\n    \"published_date\": \"2007-03-27\",\r\n    \"sinopsis\": \"La historia de Kvothe, el Asesino de Reyes\",\r\n    \"reading_time\": \"20 horas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/books/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"books",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| BOOKS | Update | /books/update/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"id\": 9,\r\n    \"title\": \"El nombre del viento - UPDATED\",\r\n    \"author\": \"Patrick Rothfuss\",\r\n    \"image_url\": \"https://example.com/image.jpg\",\r\n    \"genre\": \"Fantasía\",\r\n    \"publisher\": \"Daw Books\",\r\n    \"pages\": 662,\r\n    \"published_date\": \"2007-03-27\",\r\n    \"sinopsis\": \"La historia de Kvothe, el Asesino de Reyes\",\r\n    \"reading_time\": \"20 horas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/books/update/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"books",
+						"update",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| BOOKS | Delete | /books/delete/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3009/books/delete/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"books",
+						"delete",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| SEARCH | /search/worksearch",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/search/worksearch?q=picasso&work_page=1&work_size=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"search",
+						"worksearch"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "picasso",
+							"description": "query"
+						},
+						{
+							"key": "fields",
+							"value": "*",
+							"description": "Optional. Default response includes edition_key and title. '*' includes all fields ",
+							"disabled": true
+						},
+						{
+							"key": "work_page",
+							"value": "1",
+							"description": "Pagination. Page"
+						},
+						{
+							"key": "work_size",
+							"value": "1",
+							"description": "Length of works"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| SEARCH | GetByTitle | /search/worksearchbytitle",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/search/worksearchbytitle?title=quinquela%20martin&work_page=1&work_size=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"search",
+						"worksearchbytitle"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "quinquela%20martin"
+						},
+						{
+							"key": "fields",
+							"value": "*",
+							"description": "Optional. Default response includes edition_key and title. '*' includes all fields ",
+							"disabled": true
+						},
+						{
+							"key": "work_page",
+							"value": "1",
+							"description": "Pagination. Page"
+						},
+						{
+							"key": "work_size",
+							"value": "1",
+							"description": "Length of works"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| SEARCH | GetById | /search/edition/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/search/edition/OL13315399M",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"search",
+						"edition",
+						"OL13315399M"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| SEARCH | Import | /search/import/:id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/search/import/OL13315399M",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"search",
+						"import",
+						"OL13315399M"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERBOOK | GetByUserID | /userbook/:userID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/search/edition/OL13315399M",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"search",
+						"edition",
+						"OL13315399M"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERBOOK | GetByBookID | /userbook/book/:bookID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/userbook/book/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"userbook",
+						"book",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERBOOK | Create | /userbook/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userID\": 4,\r\n    \"booksIDs\": \"1,2,4,6,7,8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/userbook/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"userbook",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERBOOK | Delete | /userbook/:userID/:bookID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/userbook/delete/3/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"userbook",
+						"delete",
+						"3",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERS | GetAll | /user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERS | GetById | /user/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3009/users/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERS | Create | /users/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin343\",\r\n    \"password\": \"1234\",\r\n    \"email\": \"a343@a.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/users/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERS | Update | /users/update/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin343 UPDATED\",\r\n    \"password\": \"1234\",\r\n    \"email\": \"a343@a.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/users/update/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"users",
+						"update",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "| USERS | Delete | /users/delete/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin343 UPDATED\",\r\n    \"password\": \"1234\",\r\n    \"email\": \"a343@a.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3009/users/delete/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"users",
+						"delete",
+						"25"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

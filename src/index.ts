@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import loginRouter from './routes/login.route';
 import bookRouter from './routes/book.route';
+import userRouter from './routes/user.route';
+import userBookRouter from './routes/userBook.route';
 import searchRouter from './routes/search.route';
 import authMiddleware from './middlewares/authMiddleware';
 import sessionConfig from './config/session';
@@ -69,7 +71,9 @@ app.post('/logout', (req, res) => {
 });
 
 app.use('/login', loginRouter);
+app.use('/users', userRouter);
 app.use('/books', bookRouter);
+app.use('/userbook', userBookRouter);
 app.use('/search', searchRouter);
 
 const PORT = process.env.PORT ?? 3000;

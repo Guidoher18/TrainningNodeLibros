@@ -3,6 +3,7 @@ import models from '../models/index';
 import User from '../models/User';
 import AuthToken from '../authentication/jwt';
 import { catchError } from '../helper/common';
+import userToDto from '../dto/user.dto';
 
 const resWithToken = (
   message: string,
@@ -24,11 +25,7 @@ const resWithToken = (
     .status(status)
     .json({
       message: message,
-      data: {
-        id: user.id,
-        username: user.username,
-        email: user.email
-      },
+      data: userToDto(user),
       redirect: '/home'
     });
 };
