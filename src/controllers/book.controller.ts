@@ -7,7 +7,7 @@ export const getById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    console.log('id :>> ', id);
+    // console.log('id :>> ', id);
     const book = await models.Book.findByPk(id);
 
     if (!book) {

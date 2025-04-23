@@ -17,20 +17,20 @@ Authorization: mi-token-secreto
 GET http://localhost:3009/api/saludo HTTP/1.1
 Content-Type: text/html
 
+################################################################
+### Region: Login Controller
+################################################################
 
-###
 POST http://localhost:3009/login/auth HTTP/1.1
 Content-Type: application/json
-#Authorization: mi-token-secreto
 
 {
     "username": "admin",
     "password": "1234",
-    "email": "admin@localhost"
+    "email": "a@a.com"
 }
+
 ###
-
-
 
 # Register a new User
 POST http://localhost:3009/login/register HTTP/1.1
@@ -42,16 +42,94 @@ Content-Type: application/json
     "email": "admin@localhost"
 }
 
+################################################################
+### Region: Books Controller
+################################################################
+
+# GetAll
+GET http://localhost:3009/books HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
 ###
 
-# Login
-POST http://localhost:3009/login/auth HTTP/1.1
-Content-Type: application/json, text/html
+# GetById
+GET http://localhost:3009/books/2 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+###
+
+# Create
+POST http://localhost:3009/books/create HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+# {
+#     "title": "El nombre del viento",
+#     "author": "Patrick Rothfuss",
+#     "image_url": "https://example.com/image.jpg",
+#     "genre": "Fantasía",
+#     "publisher": "Daw Books",
+#     "pages": 662,
+#     "published_date": "2007-03-27",
+#     "sinopsis": "La historia de Kvothe, el Asesino de Reyes",
+#     "reading_time": "20 horas"
+# }
+# {
+#     "title": "El temor de un hombre sabio",
+#     "author": "Patrick Rothfuss",
+#     "image_url": "https://example.com/image2.jpg",
+#     "genre": "Fantasía",
+#     "publisher": "Daw Books",
+#     "pages": 994,
+#     "published_date": "2011-03-01",
+#     "sinopsis": "La continuación de la historia de Kvothe",
+#     "reading_time": "30 horas"
+# }
+
+# {
+#     "title": "Las puertas de piedra",
+#     "author": "Patrick Rothfuss",
+#     "image_url": "https://example.com/image3.jpg",
+#     "genre": "Fantasía",
+#     "publisher": "Daw Books",
+#     "pages": 1000,
+#     "published_date": "2007-10-23",
+#     "sinopsis": "La esperada conclusión de la trilogía de Kvothe",
+#     "reading_time": "TBD"
+# }
 
 {
-    "username": "Admin",
-    "password": "1234",
-    "email": "admin@localhost"
+    "title": "El nombre del viento",
+    "author": "Patrick Rothfuss",
+    "image_url": "https://example.com/image4.jpg",
+    "genre": "Fantasía",
+    "publisher": "Daw Books",
+    "pages": 662,
+    "published_date": "2007-03-27",
+    "sinopsis": "La historia de Kvothe, el Asesino de Reyes",
+    "reading_time": "20 horas"
+}
+
+###
+
+# Update    
+PUT http://localhost:3009/books/update/3 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+{
+    "id": 3,
+    "title": "Las puertas de piedra - UPDATED",
+    "author": "Patrick Rothfuss - UPDATED",
+    "image_url": "https://example.com/image3.jpg - UPDATED",
+    "genre": "Fantasía - UPDATED",
+    "publisher": "Daw Books - UPDATED",
+    "pages": 1009,
+    "published_date": "2007-10-29",
+    "sinopsis": "La esperada conclusión de la trilogía de Kvothe - UPDATED",
+    "reading_time": "TBD - UPDATED"
 }
 
 ###
@@ -61,10 +139,12 @@ DELETE http://localhost:3009/books/delete/3 HTTP/1.1
 Content-Type: application/json
 Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
 
-###
+################################################################
+### Region: Search Controller
+################################################################
 
 # Search Works by query
-GET http://localhost:3009/search/worksearch?q=picasso&&work_page=1&work_size=1 HTTP/1.1
+GET http://localhost:3009/search/worksearch?q=picasso&work_page=1&work_size=1 HTTP/1.1
 Content-Type: application/json
 Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0IiwiaWF0IjoxNzQ1MjMzNjMyLCJleHAiOjE3ODg0MzM2MzJ9.lRaOGa_9WEWkWscER_tyU3pvQ9TBbIrHTvxyilNUkxc
 
@@ -88,3 +168,85 @@ Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbW
 GET http://localhost:3009/search/worksearchbytitle?title=quinquela%20martin&work_page=1&work_size=1 HTTP/1.1
 Content-Type: application/json
 Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AbG9jYWxob3N0IiwiaWF0IjoxNzQ1MjMzNjMyLCJleHAiOjE3ODg0MzM2MzJ9.lRaOGa_9WEWkWscER_tyU3pvQ9TBbIrHTvxyilNUkxc
+
+################################################################
+### Region: UserBook Controller
+################################################################
+
+# Create userBook
+POST http://localhost:3009/userbook/create HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDUzNDgyMzMsImV4cCI6MTc4ODU0ODIzM30.0dPys72txxuwO6lsqPTuOyqIJMKV5WxHFP-68VNjFNc
+
+{
+    "userID": 3,
+    "booksIDs": "1,2,4,6,7,8"
+}
+
+###
+
+# Find Books by User
+GET http://localhost:3009/userbook/3 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDUzNDgyMzMsImV4cCI6MTc4ODU0ODIzM30.0dPys72txxuwO6lsqPTuOyqIJMKV5WxHFP-68VNjFNc
+
+###
+
+# Find Users by Book
+GET http://localhost:3009/userbook/book/4 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDUzNDgyMzMsImV4cCI6MTc4ODU0ODIzM30.0dPys72txxuwO6lsqPTuOyqIJMKV5WxHFP-68VNjFNc
+
+# Delete
+DELETE http://localhost:3009/userbook/delete/3/6 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+################################################################
+### Region: User Controller
+################################################################
+
+# GetAll
+GET http://localhost:3009/users HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+###
+
+# GetById
+GET http://localhost:3009/users/3 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+###
+
+# Create
+POST http://localhost:3009/users/create HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+{
+    "username": "admin343",
+    "password": "1234",
+    "email": "a343@a.com"
+}
+
+###
+
+# Update    
+PUT http://localhost:3009/users/update/25 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
+
+{
+    "username": "admin343 UPDATED",
+    "password": "1234",
+    "email": "a343@a.com"
+}
+
+###
+
+# Delete
+DELETE http://localhost:3009/users/delete/25 HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE3NDQ3MjEwMTYsImV4cCI6MTc4NzkyMTAxNn0.lXf0BDR2vLPPKw3evePB_-XXt9MHyGNFzujnIkk6bzM
