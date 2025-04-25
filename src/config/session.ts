@@ -1,4 +1,7 @@
 import session from 'express-session';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const sessionConfig: session.SessionOptions = {
   secret: process.env.SECRET_SESSION_KEY ?? '',
