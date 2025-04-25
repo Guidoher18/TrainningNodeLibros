@@ -602,6 +602,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "| UPLOAD | UploadImage | /upload/image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"contentType": "multipart/form-data",
+							"type": "file",
+							"src": "/C:/Users/accio/Downloads/descargar.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3009/upload/image",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3009",
+					"path": [
+						"upload",
+						"image"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
