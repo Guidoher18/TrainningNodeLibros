@@ -15,5 +15,11 @@ export default defineConfig([
     plugins: { js },
     extends: ['js/recommended']
   },
-  tseslint.configs.recommended
+  tseslint.configs.recommended,
+  {
+    files: ['tests/**/*'],
+    env: {
+      jest: true
+    }
+  }
 ]);
