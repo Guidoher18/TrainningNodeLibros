@@ -1,6 +1,9 @@
 import sequelize from '../config/db';
+import dotenv from 'dotenv';
 import { DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
+
+dotenv.config();
 
 // Testeo la conexión a la base
 // const testConnection = async (): Promise<boolean> => {

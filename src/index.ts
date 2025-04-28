@@ -4,15 +4,18 @@ import morgan from 'morgan';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import path from 'path';
+
+import User from './models/User';
+import sessionConfig from './config/session';
+import authMiddleware from './middlewares/authMiddleware';
+
 import loginRouter from './routes/login.route';
 import bookRouter from './routes/book.route';
 import userRouter from './routes/user.route';
 import userBookRouter from './routes/userBook.route';
 import searchRouter from './routes/search.route';
-import authMiddleware from './middlewares/authMiddleware';
-import sessionConfig from './config/session';
-import path from 'path';
-import User from './models/User';
+import uploadRouter from './routes/upload.route';
 
 const app = express();
 
@@ -75,6 +78,7 @@ app.use('/users', userRouter);
 app.use('/books', bookRouter);
 app.use('/userbook', userBookRouter);
 app.use('/search', searchRouter);
+app.use('/upload', uploadRouter);
 
 const PORT = process.env.PORT ?? 3000;
 

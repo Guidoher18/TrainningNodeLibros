@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
+import dotenv from 'dotenv';
 import models from '../models/index';
 import User from '../models/User';
 import AuthToken from '../authentication/jwt';
 import { catchError } from '../helper/common';
 import userToDto from '../dto/user.dto';
+
+dotenv.config();
 
 const resWithToken = (
   message: string,
