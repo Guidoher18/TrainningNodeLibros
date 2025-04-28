@@ -23,6 +23,7 @@ export const getBooksByUser = async (req: Request, res: Response) => {
 
     // console.log('booksIds :>> ', booksIds);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [results, metadata] = await sequelize.query(
       `SELECT * FROM Books WHERE id IN (${booksIds})`
     );
@@ -76,6 +77,7 @@ export const getUsersByBook = async (req: Request, res: Response) => {
       .map((userBook) => userBook.userID)
       .join(', ');
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [results, metadata] = await sequelize.query(
       `SELECT * FROM Users WHERE id IN (${usersIds})`
     );
